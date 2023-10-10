@@ -50,6 +50,7 @@ functions:
           - "dynamodb:Scan"
           - "dynamodb:GetItem"
         Resource: !GetAtt EmployeeTable.Arn
+    iamRoleStatementsName: Employee-Banks-Detail-All-api-dev-lambda
 resources:
   Resources:
     EmployeeTable:

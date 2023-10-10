@@ -41,6 +41,15 @@ functions:
           method: DELETE
           path: softDeleteBankDetialsInfo/{empId}
           cors: true
+    iamRoleStatements:
+      - Effect: "Allow"
+        Action:
+          - "dynamodb:PutItem"
+          - "dynamodb:UpdateItem"
+          - "dynamodb:DeleteItem"
+          - "dynamodb:Scan"
+          - "dynamodb:GetItem"
+        Resource: !GetAtt EmployeeTable.Arn
 resources:
   Resources:
     EmployeeTable:

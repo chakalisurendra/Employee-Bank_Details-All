@@ -233,6 +233,9 @@ const createBankDetialsInfo = async (event) => {
   }
   return response;
 };
+
+
+
 // Function to update an employee
 const updateBankDetialsInfo = async (event) => {
   const response = { statusCode: 200 };

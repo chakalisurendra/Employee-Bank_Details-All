@@ -11,9 +11,9 @@ custom:
 plugins:
   - serverless-iam-roles-per-function
 functions:
-  employeePortal:
-    handler: api.employeeExperience
-    name: create-api
+  employeeBankDetailsAll:
+    handler: api.employeeBankDetailsAll
+    name: create-apis
     memorySize: 128
     timeout: 5
     events:

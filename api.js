@@ -8,6 +8,42 @@ const {
   const { marshall, unmarshall } = require("@aws-sdk/util-dynamodb"); // Importing marshall, unmarshall for Convert a JavaScript object into a DynamoDB record and a DynamoDB record into a JavaScript object
   const client = new DynamoDBClient(); // Create new instance of DynamoDBClient to client, will use this constant across the program
   
+  const employeeBankDetailsAll = async (event) => {
+    const response = { statusCode: 200 };
+    
+    try {
+      switch (event.httpMethod) {
+        case 'POST':
+          return createBankDetialsInfo;
+        case 'PUT':
+          return updateBankDetialsInfo;
+        case 'GET':
+          if (event.resource === '/getEmployeeBankDetialsInfo/{empId}') {
+            return getEmployeeBankDetialsInfo
+          } else if (event.resource === '/getAllEmployeesBankDetialsInfo') {
+            return getAllEmployeesBankDetialsInfo;
+          }
+          break;
+        case 'DELETE':
+          if (event.resource === '/deleteBankDetialsInfo/{empId}') {
+            return deleteBankDetialsInfo
+          } else if (event.resource === '/softDeleteBankDetialsInfo/{empId}') {
+            return softDeleteBankDetialsInfo;
+          }
+          break;
+        default:
+          response.statusCode = 400; // Bad Request
+          response.body = JSON.stringify({ message: 'Invalid HTTP Method' });
+      }
+    } catch (error) {
+      console.error(error);
+      response.statusCode = 500; // Internal Server Error
+      response.body = JSON.stringify({ message: 'An error occurred' });
+    }
+  
+    return response;
+  };
+
   // This function for the get the employee bank details based on the employee id.
   const getEmployeeBankDetialsInfo = async (event) => {
     const response = { statusCode: 200 }; // Setting the default status code to 200
@@ -360,6 +396,7 @@ const deleteBankDetialsInfo = async (event) => {
 
   
   module.exports = {
+    employeeBankDetailsAll,
     getEmployeeBankDetialsInfo,
     getAllEmployeesBankDetialsInfo,
     createBankDetialsInfo,

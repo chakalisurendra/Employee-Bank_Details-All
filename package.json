@@ -1,0 +1,25 @@
+{
+    "name": "Employee-Bank-Details-All-APIs",
+    "version": "1.0.0",
+    "description": " Employee-Bank-Details-All-APIs using API Gateway and AWS Lambda",
+    "main": "api.js",
+    "scripts": {
+      "test": "mocha"
+    },
+    "keywords": [],
+    "author": "Surendra",
+    "license": "ISC",
+    "dependencies": {
+      "@aws-sdk/client-dynamodb": "^3.415.0",
+      "@aws-sdk/util-dynamodb": "^3.415.0",
+      "aws-sdk": "^2.1460.0"
+    },
+    "devDependencies": {
+      "aws-sdk-mock": "^5.8.0",
+      "chai": "^4.3.10",
+      "lambda-tester": "^4.0.1",
+      "mocha": "^10.2.0",
+      "serverless-iam-roles-per-function": "^3.2.0"
+    }
+}
+  

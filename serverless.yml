@@ -1,0 +1,60 @@
+service: Employee-Banks-Detail-All-api
+provider:
+  name: aws
+  runtime: nodejs18.x
+  stage: dev
+  region: ap-south-1
+  environment:
+    DYNAMODB_TABLE_NAME: ${self:custom.employeeTable}
+custom:
+  employeeTable: banksDetailInfo-${self:provider.stage}
+plugins:
+  - serverless-iam-roles-per-function
+functions:
+  employeePortal:
+    handler: api.employeeExperience
+    name: create-api
+    memorySize: 128
+    timeout: 5
+    events:
+      - http:
+          method: POST
+          path: createBankDetialsInfo
+          cors: true
+      - http:
+          method: PUT
+          path: updateBankDetialsInfo/{empId}
+          cors: true
+      - http:
+          method: GET
+          path: getEmployeeBankDetialsInfo/{empId}
+          cors: true
+      - http:
+          method: GET
+          path: getAllEmployeesBankDetialsInfo
+          cors: true
+      - http:
+          method: DELETE
+          path: deleteBankDetialsInfo/{empId}
+          cors: true
+      - http:
+          method: DELETE
+          path: softDeleteBankDetialsInfo/{empId}
+          cors: true
+resources:
+  Resources:
+    EmployeeTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:custom.employeeTable}
+        AttributeDefinitions:
+          - AttributeName: empId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: empId
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        StreamSpecification:
+          StreamViewType: NEW_AND_OLD_IMAGES

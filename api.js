@@ -1,6 +1,3 @@
-
-
-
 const {
   DynamoDBClient,
   PutItemCommand,
@@ -8,7 +5,6 @@ const {
   GetItemCommand, // Retrieve data fron dynamoDb table
   ScanCommand,
   DeleteItemCommand,
-
 } = require("@aws-sdk/client-dynamodb");
 const { marshall, unmarshall } = require("@aws-sdk/util-dynamodb");
 // Create a DynamoDB client for the specified AWS region
@@ -229,56 +225,85 @@ const bankDetailsAll = async (event) => {
         });
       }
       break;
-      case `/employee/bankDetails/getAll`:
-        try {
-          const { Items } = await client.send(
-            new ScanCommand({ TableName: process.env.DYNAMODB_TABLE_NAME })
-          ); // Getting table name from the servetless.yml and setting to the TableName
-      
-          if (Items.length === 0) {
-            // If there is no employee bank details found
-            response.statusCode = 404; // Setting the status code to 404
-            response.body = JSON.stringify({
-              message: "Employee bank details not found.",
-            }); // Setting error message
-          } else {
-            // If employee bank details found in the dynamoDB setting the data
-            response.body = JSON.stringify({
-              message: "Successfully retrieved all Employees bank details.",
-              data: Items.map((item) => unmarshall(item)), // A DynamoDB record into a JavaScript object and setting to the data
-            });
-          }
-        } catch (e) {
-          // If any errors will occurred
-          console.error(e);
+    case `/employee/bankDetails/getAll`:
+      try {
+        const { Items } = await client.send(
+          new ScanCommand({ TableName: process.env.DYNAMODB_TABLE_NAME })
+        ); // Getting table name from the servetless.yml and setting to the TableName
+
+        if (Items.length === 0) {
+          // If there is no employee bank details found
+          response.statusCode = 404; // Setting the status code to 404
           response.body = JSON.stringify({
-            statusCode: e.statusCode, // Handle any server response errors
-            message: "Failed to retrieved Employee bank details.",
-            errorMsg: e.message, // Handle any server response message
+            message: "Employee bank details not found.",
+          }); // Setting error message
+        } else {
+          // If employee bank details found in the dynamoDB setting the data
+          response.body = JSON.stringify({
+            message: "Successfully retrieved all Employees bank details.",
+            data: Items.map((item) => unmarshall(item)), // A DynamoDB record into a JavaScript object and setting to the data
           });
         }
-        break;
-        case `/employee/bankDetails/detete/{empId}`:
-          try {
-            const params = {
-              TableName: process.env.DYNAMODB_TABLE_NAME,
-              Key: marshall({ empId: event.pathParameters.empId }),
-            };
-            const deleteResult = await client.send(new DeleteItemCommand(params));
-            response.body = JSON.stringify({
-              message: 'Certification deleted successfully.',
-              deleteResult,
-            });
-          } catch (e) {
-            console.error(e);
-            response.statusCode = 500;
-            response.body = JSON.stringify({
-              message: 'Failed to delete certification.',
-              errorMsg: e.message,
-              errorStack: e.stack,
-            });
-          }
-          break;
+      } catch (e) {
+        // If any errors will occurred
+        console.error(e);
+        response.body = JSON.stringify({
+          statusCode: e.statusCode, // Handle any server response errors
+          message: "Failed to retrieved Employee bank details.",
+          errorMsg: e.message, // Handle any server response message
+        });
+      }
+      break;
+    case `/employee/bankDetails/getAll`:
+      try {
+        const { Items } = await client.send(
+          new ScanCommand({ TableName: process.env.DYNAMODB_TABLE_NAME })
+        ); // Getting table name from the servetless.yml and setting to the TableName
+
+        if (Items.length === 0) {
+          // If there is no employee bank details found
+          response.statusCode = 404; // Setting the status code to 404
+          response.body = JSON.stringify({
+            message: "Employee bank details not found.",
+          }); // Setting error message
+        } else {
+          // If employee bank details found in the dynamoDB setting the data
+          response.body = JSON.stringify({
+            message: "Successfully retrieved all Employees bank details.",
+            data: Items.map((item) => unmarshall(item)), // A DynamoDB record into a JavaScript object and setting to the data
+          });
+        }
+      } catch (e) {
+        // If any errors will occurred
+        console.error(e);
+        response.body = JSON.stringify({
+          statusCode: e.statusCode, // Handle any server response errors
+          message: "Failed to retrieved Employee bank details.",
+          errorMsg: e.message, // Handle any server response message
+        });
+      }
+      break;
+    case `/employee/bankDetails/detete/{empId}`:
+      try {
+        const params = {
+          TableName: process.env.DYNAMODB_TABLE_NAME,
+          Key: marshall({ empId: event.pathParameters.empId }),
+        };
+        const deleteResult = await client.send(new DeleteItemCommand(params));
+        response.body = JSON.stringify({
+          message: "Certification deleted successfully.",
+          deleteResult,
+        });
+      } catch (e) {
+        console.error(e);
+        response.statusCode = 500;
+        response.body = JSON.stringify({
+          message: "Failed to delete certification.",
+          errorMsg: e.message,
+          errorStack: e.stack,
+        });
+      }
+      break;
   }
   return response;
 };
@@ -287,18 +312,8 @@ module.exports = {
   bankDetailsAll,
 };
 
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-
-
-
-
-
-
 
 // // This program is for getting the employee bank details based http GET method.
 // const {
@@ -309,10 +324,10 @@ module.exports = {
 //   } = require("@aws-sdk/client-dynamodb"); //aws-sdk is used to build rest APIs
 //   const { marshall, unmarshall } = require("@aws-sdk/util-dynamodb"); // Importing marshall, unmarshall for Convert a JavaScript object into a DynamoDB record and a DynamoDB record into a JavaScript object
 //   const client = new DynamoDBClient(); // Create new instance of DynamoDBClient to client, will use this constant across the program
-  
+
 //   const employeeBankDetailsAll = async (event) => {
 //     const response = { statusCode: 200 };
-    
+
 //     try {
 //       switch (event.httpMethod) {
 //         case 'POST':
@@ -342,7 +357,7 @@ module.exports = {
 //       response.statusCode = 500; // Internal Server Error
 //       response.body = JSON.stringify({ message: 'An error occurred' });
 //     }
-  
+
 //     return response;
 //   };
 
@@ -390,7 +405,7 @@ module.exports = {
 //       const { Items } = await client.send(
 //         new ScanCommand({ TableName: process.env.DYNAMODB_TABLE_NAME })
 //       ); // Getting table name from the servetless.yml and setting to the TableName
-  
+
 //       if (Items.length === 0) {
 //         // If there is no employee bank details found
 //         response.statusCode = 404; // Setting the status code to 404
@@ -415,10 +430,6 @@ module.exports = {
 //     }
 //     return response; //Return response with statusCode and data.
 //   };
-
-
-
-
 
 // // Define regular expressions for validation
 // //validatins for name
@@ -536,8 +547,6 @@ module.exports = {
 //   return response;
 // };
 
-
-
 // // Function to update an employee
 // const updateBankDetialsInfo = async (event) => {
 //   const response = { statusCode: 200 };
@@ -606,12 +615,6 @@ module.exports = {
 //   return response;
 // };
 
-
-
-
-
-
-
 //   // function delete EmployeeBankInfo to delete bank information of the employee
 // const deleteBankDetialsInfo = async (event) => {
 //     // defined const response and store the status code of 200
@@ -619,10 +622,10 @@ module.exports = {
 //     // try block will examine empId in DB and if found it will delete otherwise it will throw error
 //     try {
 //       const { empId } = event.pathParameters;
-  
+
 //       // Create an empty DynamoDB List attribute after delete perform
 //       const emptyList = { L: [] };
-  
+
 //       // created const params and refered in program to proccess empId update
 //       const params = {
 //         // Table name
@@ -633,10 +636,10 @@ module.exports = {
 //           ':emptyList': emptyList, //
 //         },
 //       };
-  
+
 //       // Use the update method with UpdateExpression to set bankInfoDetails to an empty list
 //       const updateResult = await client.send(new UpdateItemCommand(params));
-  
+
 //       // convert raw data response from server to JSON string format
 //       response.body = JSON.stringify({
 //         message: `Successfully deleted empId bank Details.`,
@@ -655,7 +658,7 @@ module.exports = {
 //     // returns the response 200
 //     return response;
 //   };
-  
+
 //   const softDeleteBankDetialsInfo = async (event) => {
 //     // set 200 response
 //     const response = { statusCode: 200 };
@@ -674,10 +677,10 @@ module.exports = {
 //           ':isActive': { BOOL: true },
 //         },
 //       };
-  
+
 //       // sending params to dynamoDb
 //       const updateResult = await client.send(new UpdateItemCommand(params));
-  
+
 //       // response body values
 //       response.body = JSON.stringify({
 //         message: `Successfully soft deleted empId bank Details.`,
@@ -697,9 +700,6 @@ module.exports = {
 //     return response;
 //   };
 
-  
-
-  
 //   module.exports = {
 //     employeeBankDetailsAll,
 //     getEmployeeBankDetialsInfo,
@@ -709,4 +709,3 @@ module.exports = {
 //     deleteBankDetialsInfo,
 //     softDeleteBankDetialsInfo
 //   }; // exporting the function
-  

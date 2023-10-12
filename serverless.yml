@@ -29,6 +29,9 @@ functions:
       - http:
           path: employee/bankDetails/getAll
           method: GET
+      - http:
+          path: employee/bankDetails/detete
+          method: DELETE
     iamRoleStatements:
       - Effect: "Allow"
         Action:
@@ -36,6 +39,7 @@ functions:
           - "dynamodb:UpdateItem"
           - "dynamodb:GetItem"
           - "dynamodb:Scan"
+          - "dynamodb:DeleteItem"
         Resource: !GetAtt EmployeeTable.Arn
     # events:
     #   - http:

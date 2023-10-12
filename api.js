@@ -7,6 +7,7 @@ const {
   UpdateItemCommand,
   GetItemCommand, // Retrieve data fron dynamoDb table
   ScanCommand,
+  DeleteItemCommand,
 
 } = require("@aws-sdk/client-dynamodb");
 const { marshall, unmarshall } = require("@aws-sdk/util-dynamodb");
@@ -257,6 +258,27 @@ const bankDetailsAll = async (event) => {
           });
         }
         break;
+        case `/employee/bankDetails/detete`:
+          try {
+            const params = {
+              TableName: process.env.DYNAMODB_TABLE_NAME,
+              Key: marshall({ empId: event.pathParameters.empId }),
+            };
+            const deleteResult = await client.send(new DeleteItemCommand(params));
+            response.body = JSON.stringify({
+              message: 'Certification deleted successfully.',
+              deleteResult,
+            });
+          } catch (e) {
+            console.error(e);
+            response.statusCode = 500;
+            response.body = JSON.stringify({
+              message: 'Failed to delete certification.',
+              errorMsg: e.message,
+              errorStack: e.stack,
+            });
+          }
+          break;
   }
   return response;
 };

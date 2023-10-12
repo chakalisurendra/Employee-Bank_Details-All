@@ -18,39 +18,52 @@ functions:
     timeout: 5
     events:
       - http:
+          path: employee/bankDetails
           method: POST
-          path: createBankDetialsInfo
-          cors: true
       - http:
+          path: employee/bankDetails/{empId}
           method: PUT
-          path: updateBankDetialsInfo/{empId}
-          cors: true
-      - http:
-          method: GET
-          path: getEmployeeBankDetialsInfo/{empId}
-          cors: true
-      - http:
-          method: GET
-          path: getAllEmployeesBankDetialsInfo
-          cors: true
-      - http:
-          method: DELETE
-          path: deleteBankDetialsInfo/{empId}
-          cors: true
-      - http:
-          method: DELETE
-          path: softDeleteBankDetialsInfo/{empId}
-          cors: true
     iamRoleStatements:
       - Effect: "Allow"
         Action:
           - "dynamodb:PutItem"
           - "dynamodb:UpdateItem"
-          - "dynamodb:DeleteItem"
-          - "dynamodb:Scan"
-          - "dynamodb:GetItem"
         Resource: !GetAtt EmployeeTable.Arn
-    iamRoleStatementsName: Employee-Banks-Detail-All-api-dev-lambda
+    # events:
+    #   - http:
+    #       method: POST
+    #       path: createBankDetialsInfo
+    #       cors: true
+    #   - http:
+    #       method: PUT
+    #       path: updateBankDetialsInfo/{empId}
+    #       cors: true
+    #   - http:
+    #       method: GET
+    #       path: getEmployeeBankDetialsInfo/{empId}
+    #       cors: true
+    #   - http:
+    #       method: GET
+    #       path: getAllEmployeesBankDetialsInfo
+    #       cors: true
+    #   - http:
+    #       method: DELETE
+    #       path: deleteBankDetialsInfo/{empId}
+    #       cors: true
+    #   - http:
+    #       method: DELETE
+    #       path: softDeleteBankDetialsInfo/{empId}
+    #       cors: true
+    # iamRoleStatements:
+    #   - Effect: "Allow"
+    #     Action:
+    #       - "dynamodb:PutItem"
+    #       - "dynamodb:UpdateItem"
+    #       - "dynamodb:DeleteItem"
+    #       - "dynamodb:Scan"
+    #       - "dynamodb:GetItem"
+    #     Resource: !GetAtt EmployeeTable.Arn
+    # iamRoleStatementsName: Employee-Banks-Detail-All-api-dev-lambda
 resources:
   Resources:
     EmployeeTable:

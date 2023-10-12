@@ -31,6 +31,8 @@ functions:
         Action:
           - "dynamodb:PutItem"
           - "dynamodb:UpdateItem"
+          - "dynamodb:GetItem"
+          - "dynamodb:Scan"
         Resource: !GetAtt EmployeeTable.Arn
     # events:
     #   - http:

@@ -13,7 +13,7 @@ plugins:
 functions:
   bankDetailsAll:
     handler: api.bankDetailsAll
-    name: create-apis
+    name: employeeBank
     memorySize: 128
     timeout: 5
     events:

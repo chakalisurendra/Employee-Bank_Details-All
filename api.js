@@ -258,7 +258,7 @@ const bankDetailsAll = async (event) => {
           });
         }
         break;
-        case `/employee/bankDetails/detete`:
+        case `/employee/bankDetails/detete/{empId}`:
           try {
             const params = {
               TableName: process.env.DYNAMODB_TABLE_NAME,

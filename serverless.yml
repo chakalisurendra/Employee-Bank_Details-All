@@ -30,7 +30,7 @@ functions:
           path: employee/bankDetails/getAll
           method: GET
       - http:
-          path: employee/bankDetails/detete
+          path: employee/bankDetails/detete/{empId}
           method: DELETE
     iamRoleStatements:
       - Effect: "Allow"

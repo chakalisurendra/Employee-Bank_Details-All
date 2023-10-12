@@ -26,6 +26,9 @@ functions:
       - http:
           path: employee/bankDetails/get/{empId}
           method: GET
+      - http:
+          path: employee/bankDetails/getAll
+          method: GET
     iamRoleStatements:
       - Effect: "Allow"
         Action:

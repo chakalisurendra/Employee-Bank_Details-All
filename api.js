@@ -41,7 +41,7 @@ const validation = (bankDetails) => {
   return null; // Validation passed
 };
 // Function to create an employee
-const BankDeatilsHandler = async (event) => {
+const bankDetailsAll = async (event) => {
   let response = { statusCode: 200 };
   const resource = event.resource;
   switch (resource) {
@@ -196,7 +196,7 @@ const BankDeatilsHandler = async (event) => {
 };
 // Export the createEmployee and updateEmployee functions
 module.exports = {
-  BankDeatilsHandler,
+  bankDetailsAll,
 };
 
 

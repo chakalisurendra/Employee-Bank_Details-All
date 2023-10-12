@@ -193,7 +193,7 @@ const createBankDetialsInfo = async (event) => {
     const params = {
       TableName: process.env.DYNAMODB_TABLE_NAME,
       //add the below line in params to validate post method to restrict duplicate posts
-      ConditionExpression: "attribute_not_exists(empId)",
+      //ConditionExpression: "attribute_not_exists(empId)",
       Item: marshall({
         empId: body.empId,
         bankDetails: {
@@ -257,7 +257,7 @@ const updateBankDetialsInfo = async (event) => {
       TableName: process.env.DYNAMODB_TABLE_NAME,
       Key: marshall({ empId: event.pathParameters.empId }),
       //add the below line in params to validate and restrict the put method (updates only if the attribute exists)
-      ConditionExpression: "attribute_exists(empId)",
+      //ConditionExpression: "attribute_exists(empId)",
       UpdateExpression: `SET ${objKeys
         .map((_, index) => `#key${index} = :value${index}`)
         .join(", ")}`,

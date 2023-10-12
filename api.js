@@ -5,6 +5,9 @@ const {
   DynamoDBClient,
   PutItemCommand,
   UpdateItemCommand,
+  GetItemCommand, // Retrieve data fron dynamoDb table
+  ScanCommand,
+
 } = require("@aws-sdk/client-dynamodb");
 const { marshall, unmarshall } = require("@aws-sdk/util-dynamodb");
 // Create a DynamoDB client for the specified AWS region
